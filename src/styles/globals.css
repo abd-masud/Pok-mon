@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    .form-button {
+        @apply transition text-white py-2 mx-1 rounded-md;
+    }
+
+    .login {
+        @apply bg-blue-700 hover:bg-blue-600;
+    }
+
+    .reset {
+        @apply bg-rose-700 hover:bg-rose-600;
+    }
+
+    .cancel {
+        @apply bg-slate-600 hover:bg-slate-500;
+    }
+
+    .input {
+        @apply rounded-2xl transition border-[1px] border-black/30 hover:border-lime-700 focus:outline-rose-600 h-12 p-5;
+    }
+}
+
+@layer utilities {
+    label {
+        @apply mb-3;
+    }
+
+    .card {
+        @apply bg-white border px-10 py-8 h-[630px] w-[400px] border-gray-300 rounded-2xl shadow-lg shadow-black/50 cursor-pointer flex justify-center items-center;
+    }
+}
