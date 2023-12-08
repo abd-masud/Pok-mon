@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
 import useCount from "@/reactQueryHooks/useCount";
 
 export const Counter = () => {
-  //const { counter, increment } = useContext(CountContext);
   const { count, AddToCard} = useCount();
 
   return (

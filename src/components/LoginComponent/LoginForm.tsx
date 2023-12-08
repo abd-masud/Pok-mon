@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Router } from "next/router";
 import { FormEvent, useState } from "react";
 import { useRouter } from 'next/router'
 
@@ -11,9 +10,7 @@ export const LoginForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     if (username == "codecamp" && password == "123") {
-      // window.location.href = "/";
       router.push('/')
-      // alert("successful")
     } else {
       alert("Unknown User Alert");
     }
