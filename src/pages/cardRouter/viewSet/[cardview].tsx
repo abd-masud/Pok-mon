@@ -5,6 +5,7 @@ import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import Link from "next/link";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const data = await getAllSets();
@@ -38,15 +39,11 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
 
 const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
   const router = useRouter();
+
   const setId = router.query?.cardview as string | undefined;
   const [singleCard, setSingleCard] = useState<PokemonTCG.Set>(card);
   useEffect(() => {
-    //   if (router.query?.setid) {
-    //     _getData(router.query?.setid as string).then((tempState) => {
-    //       setSingleCard(tempState);
-    //     });
     setSingleCard(card);
-    //   }
   }, [card]);
   if (router.isFallback) {
     return (
@@ -63,47 +60,74 @@ const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
     );
   }
   return (
-    <div className="h-[860px] flex justify-center items-center bg-gray-500 overflow-hidden">
+    <div className="h-[860px] flex justify-center items-center bg-gray-300 overflow-hidden">
       <>
-        <div className="bg-gray-300 md:flex py-20 rounded-xl shadow-lg">
-          <div className="p-20 w-[400px] h-[300px] flex justify-center items-center md:border-r-2 border-black">
-            <Image
-              width={300}
-              height={300}
-              priority
-              src={singleCard.images.logo}
-              alt="Card Image"
-            />
+        <div className="bg-white py-20 rounded-xl shadow-lg shadow-black/50">
+          <div className="md:flex">
+            <div className="p-20 w-[400px] h-[300px] flex justify-center items-center md:border-r-2 border-black">
+              <Image
+                width={300}
+                height={300}
+                priority
+                src={singleCard.images.logo}
+                alt="Card Image"
+              />
+            </div>
+            <div className=" p-20">
+              <h1>
+                <strong>Name : </strong>
+                {singleCard.name}
+              </h1>
+              <h1>
+                <strong>Printed Total : </strong>
+                {singleCard.printedTotal}
+              </h1>
+              <h1>
+                <strong>PTCGO Code : </strong>
+                {singleCard.ptcgoCode}
+              </h1>
+              <h1>
+                <strong>Series : </strong>
+                {singleCard.series}
+              </h1>
+              <h1>
+                <strong>Total : </strong>
+                {singleCard.total}
+              </h1>
+              <h1>
+                <strong>Release Date : </strong>
+                {singleCard.releaseDate}
+              </h1>
+              <h1>
+                <strong>Updated At : </strong>
+                {singleCard.updatedAt}
+              </h1>
+            </div>
           </div>
-          <div className=" p-20">
-            <h1>
-              <strong>Name : </strong>
-              {singleCard.name}
-            </h1>
-            <h1>
-              <strong>Printed Total : </strong>
-              {singleCard.printedTotal}
-            </h1>
-            <h1>
-              <strong>PTCGO Code : </strong>
-              {singleCard.ptcgoCode}
-            </h1>
-            <h1>
-              <strong>Series : </strong>
-              {singleCard.series}
-            </h1>
-            <h1>
-              <strong>Total : </strong>
-              {singleCard.total}
-            </h1>
-            <h1>
-              <strong>Release Date : </strong>
-              {singleCard.releaseDate}
-            </h1>
-            <h1>
-              <strong>Updated At : </strong>
-              {singleCard.updatedAt}
-            </h1>
+
+          <div className="w-[500px] m-auto">
+            <div className="px-10 grid grid-cols-3">
+              <div className="flex justify-start">
+                <button className="form-button submit w-32" type="button">
+                  Add to Cart
+                </button>
+              </div>
+              <div className="flex justify-center">
+                <button className="form-button clear w-32" type="button">
+                  Remove Cart
+                </button>
+              </div>
+              <div className="flex justify-end">
+                <Link href={"/"}>
+                  <button
+                    className="form-button cancel w-32 justify-end"
+                    type="button"
+                  >
+                    Close
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </>

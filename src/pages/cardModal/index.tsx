@@ -14,7 +14,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ): Promise<{ props: { dehydratedState: DehydratedState } }> => {
   const queryClient = new QueryClient();
-  
+
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.CardSets],
     queryFn: async () => {
@@ -28,7 +28,7 @@ export const getServerSideProps = async (
   };
 };
 
-export default function CardSets(props: { set: PokemonTCG.Set[] }) {
+export default function CardModal(props: { set: PokemonTCG.Set[] }) {
   const setObject = useSets();
   const sets = setObject.data;
   console.log(setObject.data);
@@ -47,14 +47,16 @@ export default function CardSets(props: { set: PokemonTCG.Set[] }) {
   return (
     <div className="bg-gray-300">
       <div className="py-20 container m-auto">
-        <Image className="h-[400px] w-auto m-auto" src={cover} alt="Logo"></Image>
+        <Image
+          className="h-[400px] w-auto m-auto"
+          src={cover}
+          alt="Logo"
+        ></Image>
       </div>
       <div className="flex justify-center">
         <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
           {sets ? (
-            sets.map((item, index) => (
-              <Card data={item} key={index}></Card>
-            ))
+            sets.map((item, index) => <Card data={item} key={index}></Card>)
           ) : (
             <>
               <div className="transition hover:-translate-y-3 2xl:mx-12 xl:mx-4 md:mx-12 mb-16">

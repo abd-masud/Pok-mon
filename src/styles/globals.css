@@ -5,14 +5,14 @@
 @layer components {
 
     .form-button {
-        @apply transition text-white py-2 mx-1 rounded-md;
+        @apply transition text-white py-2 rounded-md;
     }
 
-    .login {
+    .submit {
         @apply bg-blue-700 hover:bg-blue-600;
     }
 
-    .reset {
+    .clear {
         @apply bg-rose-700 hover:bg-rose-600;
     }
 
@@ -31,6 +31,6 @@
     }
 
     .card {
-        @apply bg-white border px-10 py-8 h-[630px] w-[400px] border-gray-300 rounded-2xl shadow-lg shadow-black/50 cursor-pointer flex justify-center items-center;
+        @apply bg-white border px-10 py-8 h-[400px] w-[400px] border-gray-300 rounded-2xl shadow-lg shadow-black/50 cursor-pointer flex justify-center items-center;
     }
 }

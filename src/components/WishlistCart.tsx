@@ -1,7 +1,7 @@
 import useCount from "@/reactQueryHooks/useCount";
 
 export const Counter = () => {
-  const { count, AddToCard} = useCount();
+  const { count, AddToCart } = useCount();
 
   return (
     <main className="flex justify-center">
@@ -11,7 +11,7 @@ export const Counter = () => {
         <div>
           <button
             className="bg-lime-700 hover:bg-lime-600 px-5 py-2 rounded text-white transition mr-2"
-            onClick={() => AddToCard()}
+            onClick={() => AddToCart()}
           >
             Increment
           </button>

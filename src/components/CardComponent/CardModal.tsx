@@ -49,9 +49,7 @@ export default function Example() {
                         Add to cart
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          hey there
-                        </p>
+                        <p className="text-sm text-gray-500">hey there</p>
                       </div>
                     </div>
                   </div>

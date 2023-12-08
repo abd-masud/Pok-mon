@@ -7,6 +7,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import FooterComponent from "@/components/FooterComponent/Footer";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(new QueryClient());
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <main>
             <Component {...pageProps}></Component>
           </main>
+          <FooterComponent />
         </HydrationBoundary>
       </QueryClientProvider>
     </>

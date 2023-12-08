@@ -1,3 +1,3 @@
 export enum QueryKeys {
-    CardSets = 'sets',
-  }
+  CardSets = 'sets',
+}

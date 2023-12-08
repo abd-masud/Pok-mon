@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
   };
 };
 
-const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
+const ModalComponent = ({ card }: { card: PokemonTCG.Set }) => {
   const router = useRouter();
   const setId = router.query?.cardmodal as string | undefined;
   const [singleCard, setSingleCard] = useState<PokemonTCG.Set>(card);
@@ -67,9 +67,7 @@ const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
 
   const Example = () => {
     const [open, setOpen] = useState(true);
-
     const cancelButtonRef = useRef(null);
-
     return (
       <Transition.Root show={open} as={Fragment}>
         <Dialog
@@ -196,4 +194,4 @@ const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
     );
   };
 };
-export default SetComponent;
+export default ModalComponent;

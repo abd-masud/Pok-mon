@@ -16,7 +16,11 @@ export const CardList = () => {
   return (
     <div>
       <div className="py-20 container m-auto">
-        <Image className="h-[400px] w-auto m-auto" src={cover} alt="Logo"></Image>
+        <Image
+          className="h-[400px] w-auto m-auto"
+          src={cover}
+          alt="Logo"
+        ></Image>
       </div>
       <div className="flex justify-center">
         <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">

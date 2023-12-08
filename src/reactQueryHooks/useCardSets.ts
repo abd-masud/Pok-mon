@@ -7,12 +7,12 @@ import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk"
 export const useSets = (isEnabled: boolean = false) => {
     return useQuery<PokemonTCG.Set[]>({
         queryKey: [QueryKeys.CardSets],
-        queryFn:async () => {
+        queryFn: async () => {
             const sets = await getAllSets();
             return sets;
         },
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
+        refetchOnWindowFocus: true,
+        refetchOnMount: true,
         enabled: true,
         retry: 1
     });

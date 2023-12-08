@@ -1,35 +1,35 @@
 import Link from "next/link";
-import { FormEvent, useState } from "react";
-import { useRouter } from 'next/router'
+import { FormEvent, InvalidEvent, useState } from "react";
+import { useRouter } from "next/router";
 
 export const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>();
+  const [password, setPassword] = useState<string>("");
+  const [logError, setError] = useState<boolean>(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     if (username == "codecamp" && password == "123") {
-      router.push('/')
+      router.push("/");
     } else {
-      alert("Unknown User Alert");
+      setError(true);
     }
   };
 
   return (
-    <main className="bg-white">
-      <div className="mt-[200px] flex items-center justify-center -translate-y-16">
+    <main className="bg-gray-300">
+      <div className="pt-[200px] pb-[135px] flex items-center justify-center -translate-y-16">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(e);
           }}
         >
-          <div className="rounded-xl border-2 border-gray-600 bg-gray-200 w-[500px]">
-            <h2 className="bg-gray-600 text-white text-[40px] p-5 pl-10 rounded-t-xl">
-              Login
-            </h2>
-            <div className="p-5 mt-8 px-10 grid grid-cols-1">
+          <div className="shadow-2xl shadow-black border-2 border-gray-400 bg-gray-200 sm:w-[615px] w-[430px]">
+            <h2 className="text-[40px] p-5 pl-10">Login</h2>
+            
+            <div className="p-5 mt-8 px-10 grid">
               <label htmlFor="username">Username : </label>
               <input
                 className="input"
@@ -44,7 +44,7 @@ export const LoginForm = () => {
                 }}
               />
             </div>
-            <div className="p-5 px-10 grid grid-cols-1">
+            <div className="p-5 px-10 grid">
               <label htmlFor="password">Password : </label>
               <input
                 className="input"
@@ -59,26 +59,42 @@ export const LoginForm = () => {
                 }}
               />
             </div>
-
-            <div className="p-10 px-10 w-[490px] grid grid-cols-3">
-              <button className="form-button login" type="submit" name="login">
-                Submit
-              </button>
-              <button
-                className="form-button reset"
-                type="button"
-                onClick={() => {
-                  setUsername("");
-                  setPassword("");
-                }}
-              >
-                Reset
-              </button>
-              <Link href="/">
-                <button type="button" className="form-button cancel w-full">
-                  Close
+            <div className="sm:w-[615px] w-[430px] flex justify-center">
+            <p className="">{logError?<span className="text-rose-600 font-bold">Invalid Username or Password</span>:<span className="text-transparent">error</span>}</p>
+            </div>
+            <div className="p-10 px-10 grid grid-cols-3">
+              <div className="flex justify-start">
+                <button
+                  className="form-button submit w-28"
+                  type="submit"
+                  name="login"
+                >
+                  Submit
                 </button>
-              </Link>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  className="form-button clear w-28"
+                  type="button"
+                  onClick={() => {
+                    setUsername("");
+                    setPassword("");
+                    setError(false);
+                  }}
+                >
+                  Clear
+                </button>
+              </div>
+              <div className="flex justify-end">
+                <Link href="/">
+                  <button
+                    className="form-button cancel w-28 justify-end"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </form>
