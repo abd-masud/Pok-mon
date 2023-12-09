@@ -9,3 +9,10 @@ export const getOneCard = async (setId: string) => {
     const OneCard = await PokemonTCG.findSetByID(setId);
     return OneCard;
 }
+
+// export const editName = async (setId: string, setName: string) => {
+//     console.log("set update: " + setName);
+//     return{
+//         message: "name changed",
+//     };
+// };

@@ -16,7 +16,7 @@ export const Card = (props: any) => {
     <main>
       <div className="transition hover:scale-[1.02] 2xl:mx-12 xl:mx-4 md:mx-12 mb-16 bg-white border px-10 py-8 h-[400px] w-[400px] border-gray-300 rounded-2xl shadow-lg shadow-black/50">
         <Link href={`/cardRouter/viewSet/${props.data.id}`}>
-          <div className="h-[230px] w-[320px] p-14 pt-24 mb-5 m-auto flex justify-center items-center bg-gray-100 hover:bg-gray-200 border-[1px] border-gray-300 transition rounded-md">
+          <div className="h-[230px] w-[320px] p-20 pt-28 mb-5 m-auto flex justify-center items-center bg-gray-100 hover:bg-gray-200 border-[1px] border-gray-300 transition rounded-md">
             <CardImage images={props.data.images.logo}></CardImage>
           </div>
         </Link>
@@ -72,7 +72,7 @@ export const Card = (props: any) => {
                               <Link
                                 href={`/cardRouter/viewSet/${props.data.id}`}
                               >
-                                <div className="h-[230px] p-14 pt-24 mb-5 m-auto flex justify-center items-center bg-gray-100 hover:bg-gray-200 border-[1px] border-gray-300 transition rounded-md">
+                                <div className="h-[230px] p-28 pt-36 mb-5 m-auto flex justify-center items-center bg-gray-100 hover:bg-gray-200 border-[1px] border-gray-300 transition rounded-md">
                                   <CardImage
                                     images={props.data.images.logo}
                                   ></CardImage>
@@ -91,7 +91,7 @@ export const Card = (props: any) => {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-gray-50 px-4 py-3">
+                      <div className="bg-gray-50 px-4 py-3 pb-10">
                         <div className="m-auto">
                           <div className="px-10 grid grid-cols-3">
                             <div className="flex justify-start">

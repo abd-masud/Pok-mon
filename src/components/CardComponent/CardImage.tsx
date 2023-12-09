@@ -4,8 +4,8 @@ export const CardImage = (props: any) => {
   return (
     <div className="mb-10">
       <Image
-        width={300}
-        height={200}
+        width={200}
+        height={150}
         src={props.images}
         alt="Card Image"
         priority
