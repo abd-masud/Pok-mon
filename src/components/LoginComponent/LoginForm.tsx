@@ -1,17 +1,22 @@
 import Link from "next/link";
 import { FormEvent, InvalidEvent, useState } from "react";
 import { useRouter } from "next/router";
+import useLogin from "@/reactQueryHooks/useLogin";
 
 export const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [logError, setError] = useState<boolean>(false);
 
+  const { exLogin, exUsername } = useLogin();
+
   const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     if (username == "codecamp" && password == "123") {
       router.push("/");
+      exUsername();
+      exLogin();
     } else {
       setError(true);
     }
@@ -28,7 +33,7 @@ export const LoginForm = () => {
         >
           <div className="shadow-2xl shadow-black border-2 border-gray-400 bg-gray-200 sm:w-[615px] w-[430px]">
             <h2 className="text-[40px] p-5 pl-10">Login</h2>
-            
+
             <div className="p-5 mt-8 px-10 grid">
               <label htmlFor="username">Username : </label>
               <input
@@ -37,6 +42,7 @@ export const LoginForm = () => {
                 id="username"
                 name="username"
                 placeholder="Enter Username"
+                autoComplete="off"
                 required
                 value={username}
                 onChange={(e) => {
@@ -52,6 +58,7 @@ export const LoginForm = () => {
                 id="password"
                 name="password"
                 placeholder="Enter Password"
+                autoComplete="off"
                 required
                 value={password}
                 onChange={(e) => {
@@ -59,8 +66,16 @@ export const LoginForm = () => {
                 }}
               />
             </div>
-            <div className="sm:w-[615px] w-[430px] flex justify-center">
-            <p className="">{logError?<span className="text-rose-600 font-bold">Invalid Username or Password</span>:<span className="text-transparent">error</span>}</p>
+            <div className="flex justify-center">
+              <p className="">
+                {logError ? (
+                  <span className="text-rose-600 font-bold">
+                    Invalid Username or Password
+                  </span>
+                ) : (
+                  <span className="text-transparent relative -z-10">error</span>
+                )}
+              </p>
             </div>
             <div className="p-10 px-10 grid grid-cols-3">
               <div className="flex justify-start">

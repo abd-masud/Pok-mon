@@ -36,7 +36,7 @@ export default function CardSets(props: { set: PokemonTCG.Set[] }) {
     <div className="bg-gray-300">
       <div className="py-24 px-[10%] container m-auto">
         <Image
-          className="h-auto w-auto m-auto drop-shadow-2xl"
+          className="h-auto w-auto m-auto"
           src={cover}
           alt="Logo"
         ></Image>

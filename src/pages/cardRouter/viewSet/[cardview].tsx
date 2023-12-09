@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import Link from "next/link";
+import useCart from "@/reactQueryHooks/useCart";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const data = await getAllSets();
@@ -37,7 +38,8 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
   };
 };
 
-const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
+const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
+  const { AddToCart, Remove } = useCart();
   const router = useRouter();
 
   const setId = router.query?.cardview as string | undefined;
@@ -62,9 +64,9 @@ const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
   return (
     <div className="h-[860px] flex justify-center items-center bg-gray-300 overflow-hidden">
       <>
-        <div className="bg-white py-20 rounded-xl shadow-lg shadow-black/50">
+        <div className="bg-white py-14 rounded-xl shadow-lg shadow-black/50">
           <div className="md:flex">
-            <div className="p-20 w-[400px] h-[300px] flex justify-center items-center md:border-r-2 border-black">
+            <div className="p-20 w-[400px] h-[300px] flex justify-center items-center">
               <Image
                 width={300}
                 height={300}
@@ -73,47 +75,55 @@ const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
                 alt="Card Image"
               />
             </div>
-            <div className=" p-20">
-              <h1>
+            <div className="md:border-l-2 border-black px-14 pr-24 py-2 mb-10">
+              <p className="py-2">
                 <strong>Name : </strong>
                 {singleCard.name}
-              </h1>
-              <h1>
+              </p>
+              <p className="py-2">
                 <strong>Printed Total : </strong>
                 {singleCard.printedTotal}
-              </h1>
-              <h1>
+              </p>
+              <p className="py-2">
                 <strong>PTCGO Code : </strong>
                 {singleCard.ptcgoCode}
-              </h1>
-              <h1>
+              </p>
+              <p className="py-2">
                 <strong>Series : </strong>
                 {singleCard.series}
-              </h1>
-              <h1>
+              </p>
+              <p className="py-2">
                 <strong>Total : </strong>
                 {singleCard.total}
-              </h1>
-              <h1>
+              </p>
+              <p className="py-2">
                 <strong>Release Date : </strong>
                 {singleCard.releaseDate}
-              </h1>
-              <h1>
+              </p>
+              <p className="py-2">
                 <strong>Updated At : </strong>
                 {singleCard.updatedAt}
-              </h1>
+              </p>
             </div>
           </div>
 
           <div className="w-[500px] m-auto">
             <div className="px-10 grid grid-cols-3">
               <div className="flex justify-start">
-                <button className="form-button submit w-32" type="button">
+                <button
+                  className="form-button submit w-32"
+                  type="button"
+                  onClick={() => AddToCart()}
+                >
                   Add to Cart
                 </button>
               </div>
               <div className="flex justify-center">
-                <button className="form-button clear w-32" type="button">
+                <button
+                  className="form-button clear w-32"
+                  type="button"
+                  onClick={() => Remove()}
+                >
                   Remove Cart
                 </button>
               </div>
@@ -134,4 +144,4 @@ const SetComponent = ({ card }: { card: PokemonTCG.Set }) => {
     </div>
   );
 };
-export default SetComponent;
+export default setShowModal;

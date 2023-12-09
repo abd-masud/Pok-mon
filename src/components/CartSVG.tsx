@@ -1,4 +1,4 @@
-export default function HeaderSVG() {
+export default function CartSVG() {
   return (
     <main>
       <svg

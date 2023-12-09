@@ -1,4 +1,3 @@
-import { CardList } from "@/components/CardComponent/CardList";
 import CardSets from "./cardRouter";
 
 export default function Home() {

@@ -7,7 +7,7 @@ export default function FooterComponent() {
       <p className="text-center">
         Copyright © 2023 ABD. All Rights Reserved
         <br />
-        Developed With <span className="text-rose-500">&#9829;</span> By&nbsp;
+        Developed With <span className="text-rose-500">&#10084;</span> By&nbsp;
         <Link
           target="_blank"
           className="underline"
