@@ -8,7 +8,7 @@ import useCart from "@/reactQueryHooks/useCart";
 import { CardModal } from "./CardModalInfo";
 
 export const Card = (props: any) => {
-  const { AddToCart, Remove } = useCart();
+  const { AddToCart, pushId } = useCart();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
@@ -44,7 +44,7 @@ export const Card = (props: any) => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 bg-gray-700/50 backdrop-blur transition-opacity" />
+                <div className="fixed inset-0 bg-gray-700/50 backdrop-blur-md transition-opacity" />
               </Transition.Child>
 
               <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -93,29 +93,22 @@ export const Card = (props: any) => {
                       </div>
                       <div className="bg-gray-50 px-4 py-3 pb-10">
                         <div className="m-auto">
-                          <div className="px-10 grid grid-cols-3">
+                          <div className="px-10 grid grid-cols-2">
                             <div className="flex justify-start">
                               <button
                                 className="form-button submit w-28"
                                 type="button"
-                                onClick={() => AddToCart()}
+                                onClick={() => {
+                                  AddToCart(), pushId(props.data.id);
+                                }}
                               >
                                 Add to Cart
-                              </button>
-                            </div>
-                            <div className="flex justify-center">
-                              <button
-                                className="form-button clear w-28"
-                                type="button"
-                                onClick={() => Remove()}
-                              >
-                                Remove Cart
                               </button>
                             </div>
                             <div className="flex justify-end">
                               <button
                                 type="button"
-                                className="form-button cancel w-28"
+                                className="form-button clear w-28"
                                 onClick={() => setOpen(false)}
                               >
                                 Cancel

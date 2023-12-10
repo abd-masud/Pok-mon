@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
 };
 
 const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
-  const { AddToCart, Remove } = useCart();
+  const { AddToCart } = useCart();
   const router = useRouter();
 
   const setId = router.query?.cardview as string | undefined;
@@ -108,7 +108,7 @@ const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
           </div>
 
           <div className="w-[500px] m-auto">
-            <div className="px-10 grid grid-cols-3">
+            <div className="px-10 grid grid-cols-2">
               <div className="flex justify-start">
                 <button
                   className="form-button submit w-32"
@@ -118,19 +118,10 @@ const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
                   Add to Cart
                 </button>
               </div>
-              <div className="flex justify-center">
-                <button
-                  className="form-button clear w-32"
-                  type="button"
-                  onClick={() => Remove()}
-                >
-                  Remove Cart
-                </button>
-              </div>
               <div className="flex justify-end">
                 <Link href={"/"}>
                   <button
-                    className="form-button cancel w-32 justify-end"
+                    className="form-button clear w-32 justify-end"
                     type="button"
                   >
                     Close

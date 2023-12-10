@@ -8,7 +8,7 @@ export const LoginForm = () => {
   const [password, setPassword] = useState<string>("");
   const [logError, setError] = useState<boolean>(false);
 
-  const { exLogin, exUsername } = useLogin();
+  const { updateLogin, exUsername } = useLogin();
 
   const router = useRouter();
 
@@ -16,7 +16,7 @@ export const LoginForm = () => {
     if (username == "codecamp" && password == "123") {
       router.push("/");
       exUsername();
-      exLogin();
+      updateLogin("Logout");
     } else {
       setError(true);
     }
@@ -31,7 +31,7 @@ export const LoginForm = () => {
             handleSubmit(e);
           }}
         >
-          <div className="shadow-2xl shadow-black border-2 border-gray-400 bg-gray-200 sm:w-[615px] w-[430px]">
+          <div className="shadow-2xl shadow-black border-2 border-gray-400 bg-gray-100 sm:w-[615px] w-[430px]">
             <h2 className="text-[40px] p-5 pl-10">Login</h2>
 
             <div className="p-5 mt-8 px-10 grid">

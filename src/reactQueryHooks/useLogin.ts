@@ -3,16 +3,17 @@ import { create } from 'zustand';
 type Store = {
   login: any;
   username: string;
-  exLogin: () => void;
+  updateLogin: (value: any) => void,
+  updateUsername: (value: any) => void,
   exUsername: () => void;
 };
 
 const useLogin = create<Store>((set) => ({
   login: "Login",
   username: "",
-  exLogin: () => set((login) => ({ login: "LogOut" })),
-  exUsername: () => set((username) => ({ username: "codecamp" }))
-
+  updateLogin: (value: any) => set((state) => ({ login: value })),
+  updateUsername: (value: any) => set((state) => ({ username: value })),
+  exUsername: () => set((username) => ({ username: "CodeCamp" })),
 }));
 
 export default useLogin;

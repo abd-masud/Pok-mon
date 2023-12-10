@@ -10,27 +10,10 @@ import { useEffect, useState } from "react";
 import cover from "@/Image/cover.png";
 import Image from "next/image";
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-): Promise<{ props: { dehydratedState: DehydratedState } }> => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.CardSets],
-    queryFn: async () => {
-      const sets = await getAllSets();
-      return sets;
-    },
-  });
-
-  return {
-    props: { dehydratedState: dehydrate(queryClient) },
-  };
-};
-
-export default function CardSets(props: { set: PokemonTCG.Set[] }) {
+export default function CardSets() {
   const setObject = useSets();
   const sets = setObject.data;
+  // sets?.sort((a, b) => Date.parse(b.releaseDate) - Date.parse(a.releaseDate));
 
   return (
     <div className="bg-gray-300">

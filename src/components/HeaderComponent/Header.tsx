@@ -1,38 +1,30 @@
-import React, { useContext } from "react";
-import useCount from "@/reactQueryHooks/useCart";
+import useCart from "@/reactQueryHooks/useCart";
 import pokemon from "@/Image/pokemon.png";
 import Image from "next/image";
 import Link from "next/link";
 import useLogin from "@/reactQueryHooks/useLogin";
-import CartSVG from "../CartSVG";
+import CartSVG from "./CartSVG";
+import { useRouter } from "next/router";
 
 export default function HeaderComponent() {
+  const router = useRouter();
+  const { count } = useCart();
   const { login } = useLogin();
-  const { username } = useLogin();
-  const { count } = useCount();
+  const { username, updateLogin, updateUsername } = useLogin();
   return (
     <main className="bg-black text-white sticky top-0 z-10">
       <div className="container m-auto grid grid-cols-3">
-        <div className="ml-3 my-auto">
-          <div className="flex items-center">
-            <button
-              id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-              type="button"
-              className="flex items-center transition bg-gray-900 hover:bg-gray-800 py-1 px-5 rounded-md"
-            >
-              <CartSVG></CartSVG>
-              {count}
-            </button>
-          </div>
-
-          <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-              <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                </li>
-              </ul>
-          </div>
-
+        <div className="ml-3 my-auto flex items-center">
+          <button
+            onClick={(e) => {
+              router.push("/CartComponent/");
+            }}
+            type="button"
+            className="flex items-center transition bg-gray-900 hover:bg-gray-800 py-1 px-5 rounded-md"
+          >
+            <CartSVG></CartSVG>
+            {count}
+          </button>
         </div>
         <div className="flex justify-center items-center">
           <Link href={"/"}>
@@ -45,11 +37,17 @@ export default function HeaderComponent() {
         </div>
         <div className="flex justify-end items-center mr-3">
           {username}
-          <Link className="ml-10" href="/LoginComponent/">
-            <button className="transition bg-gray-700 hover:bg-gray-600 py-1 px-5 rounded-md">
-              {login}
-            </button>
-          </Link>
+          <button
+            onClick={(e) => {
+              updateLogin("Login");
+              updateUsername("");
+              router.push("/LoginComponent");
+            }}
+            className="transition bg-gray-700 hover:bg-gray-600 py-1 px-5 rounded-md ml-5"
+            type="submit"
+          >
+            {login}
+          </button>
         </div>
       </div>
     </main>

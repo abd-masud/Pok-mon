@@ -10,9 +10,8 @@ export const getOneCard = async (setId: string) => {
     return OneCard;
 }
 
-// export const editName = async (setId: string, setName: string) => {
-//     console.log("set update: " + setName);
-//     return{
-//         message: "name changed",
-//     };
-// };
+export const editName = async (setId: string, setName: string) => {
+    return{
+        message: "name changed",
+    };
+};
