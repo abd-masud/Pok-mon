@@ -17,7 +17,7 @@ const CartList = () => {
 
   return (
     <div className="min-h-[760px]">
-      <div className="lg:px-40 py-10">
+      <div className="lg:px-60 py-10">
         {findData?.map((x, index) => (
           <ShowCart item={x} key={index} />
         ))}

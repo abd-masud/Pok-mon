@@ -39,8 +39,8 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
 };
 
 const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
-  const { AddToCart } = useCart();
   const router = useRouter();
+  const { AddToCart, pushId } = useCart();
 
   const setId = router.query?.cardview as string | undefined;
   const [singleCard, setSingleCard] = useState<PokemonTCG.Set>(card);
@@ -113,7 +113,9 @@ const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
                 <button
                   className="form-button submit w-32"
                   type="button"
-                  onClick={() => AddToCart()}
+                  onClick={() => {
+                    AddToCart(), pushId(singleCard.id);
+                  }}
                 >
                   Add to Cart
                 </button>

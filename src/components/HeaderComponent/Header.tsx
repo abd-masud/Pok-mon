@@ -20,7 +20,7 @@ export default function HeaderComponent() {
               router.push("/CartComponent/");
             }}
             type="button"
-            className="flex items-center transition bg-gray-900 hover:bg-gray-800 py-1 px-5 rounded-md"
+            className="flex items-center transition bg-gray-900 hover:bg-gray-800 py-1 px-4 rounded-md "
           >
             <CartSVG></CartSVG>
             {count}
