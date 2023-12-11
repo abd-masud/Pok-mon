@@ -14,7 +14,7 @@ const CartList = () => {
     const result = sets?.filter((x) => x.id === id);
     findData.push(...(result as Set[]));
   });
-
+  
   return (
     <div className="min-h-[760px]">
       <div className="lg:px-60 py-10">

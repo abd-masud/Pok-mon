@@ -13,7 +13,7 @@ import Image from "next/image";
 export default function CardSets() {
   const setObject = useSets();
   const sets = setObject.data;
-  // sets?.sort((a, b) => Date.parse(b.releaseDate) - Date.parse(a.releaseDate));
+  sets?.sort((a, b) => Date.parse(b.releaseDate) - Date.parse(a.releaseDate));
 
   return (
     <div className="bg-gray-300">

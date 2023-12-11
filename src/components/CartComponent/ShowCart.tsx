@@ -1,7 +1,7 @@
 import useCart from "@/reactQueryHooks/useCart";
 import Image from "next/image";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
-import { TrashSVG } from "./TrashSVG";
+import { TrashSVG } from "../SVGComponent/TrashSVG";
 
 const ShowCart = ({ item }: { item: Set }) => {
   const { removeId, Remove } = useCart();
@@ -23,7 +23,7 @@ const ShowCart = ({ item }: { item: Set }) => {
 
       <div className="flex justify-center items-center">
         <button
-          className="fill-white flex justify-center items-center form-button clear w-10 h-10 bg-rose-600 hover:bg-rose-700 transition"
+          className="fill-white flex justify-center items-center form-button clear w-10 h-10 bg-rose-600 hover:bg-rose-700 active:bg-rose-400 transition"
           type="button"
           onClick={() => {
             Remove();

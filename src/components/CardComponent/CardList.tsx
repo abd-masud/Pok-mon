@@ -4,6 +4,7 @@ import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { Card } from "./Card";
 import cover from "@/Image/cover.png";
 import Image from "next/image";
+
 export const CardList = () => {
   const [pokemonData, setPokemonData] = useState<PokemonTCG.Set[]>([]);
 

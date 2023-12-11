@@ -1,4 +1,4 @@
-export const CardModal = (props: any) => {
+export const CardModalInfo = (props: any) => {
   return (
     <div className="px-10 pb-1">
       <p className="pb-2">

@@ -9,15 +9,15 @@
     }
 
     .submit {
-        @apply bg-blue-700 hover:bg-blue-600;
+        @apply bg-blue-700 hover:bg-blue-600 active:bg-blue-400;
     }
 
     .clear {
-        @apply bg-rose-600 hover:bg-rose-500;
+        @apply bg-rose-600 hover:bg-rose-500 active:bg-rose-300;
     }
 
     .cancel {
-        @apply bg-slate-600 hover:bg-slate-500;
+        @apply bg-slate-600 hover:bg-slate-500 active:bg-slate-300;
     }
 
     .input {

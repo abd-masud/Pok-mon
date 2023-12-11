@@ -15,3 +15,8 @@ export const editName = async (setId: string, setName: string) => {
         message: "name changed",
     };
 };
+
+export const getAllCards = async () => {
+    const AllCard = await PokemonTCG.getAllCards();
+    return AllCard;
+}
