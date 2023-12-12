@@ -12,7 +12,7 @@ export const CardModal = (props: any) => {
   return (
     <>
       <button
-        className="px-2 py-1 mt-5 rounded bg-blue-700 hover:bg-blue-600 active:bg-blue-400 text-white transition"
+        className="px-2 py-1 mt-5 rounded bg-blue-700 hover:bg-blue-600 active:bg-blue-700 text-white transition"
         onClick={handleOpen}
       >
         Quick View
@@ -81,7 +81,7 @@ export const CardModal = (props: any) => {
                             className="form-button submit w-28"
                             type="button"
                             onClick={() => {
-                              AddToCart(), pushId(props.data.id);
+                              AddToCart(); pushId(props.id); localStorage.setItem("Cart", props.id);
                             }}
                           >
                             Add to Cart

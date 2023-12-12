@@ -6,17 +6,16 @@ import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 export const useEditName = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({setId, setName}: {setId: string; setName: string}) =>
-        editName(setId,setName),
-        onSuccess:(params, variables) => {
+        mutationFn: ({ setId, setName }: { setId: string; setName: string }) =>
+            editName(setId, setName),
+        onSuccess: (params, variables) => {
             queryClient.setQueryData(
                 [QueryKeys.CardSets],
                 (initialSets: PokemonTCG.Set[]) => {
-                    let foundSet = initialSets?.find((set) => set.id === variables.setId);
-                    if(foundSet) {
-                        foundSet.name = variables.setName;
-                    }
-                    return initialSets;
+                    const foundSet = structuredClone(initialSets);
+                    const foundSetIndex = foundSet.findIndex((set) => set.id === variables.setId);
+                    foundSet[foundSetIndex].name = variables.setName;
+                    return foundSet;
                 }
             )
         },

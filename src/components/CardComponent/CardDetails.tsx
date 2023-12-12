@@ -2,7 +2,6 @@ import { info } from "console";
 import { FunctionComponent, ReactNode } from "react";
 
 export const CardDetails = (props: any) => {
-  // console.log(props)
   return (
     <div className="">
       <h2>

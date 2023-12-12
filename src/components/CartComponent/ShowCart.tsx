@@ -23,7 +23,7 @@ const ShowCart = ({ item }: { item: Set }) => {
 
       <div className="flex justify-center items-center">
         <button
-          className="fill-white flex justify-center items-center form-button clear w-10 h-10 bg-rose-600 hover:bg-rose-700 active:bg-rose-400 transition"
+          className="fill-white flex justify-center items-center form-button clear w-10 h-10 clear transition"
           type="button"
           onClick={() => {
             Remove();

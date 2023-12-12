@@ -20,7 +20,7 @@ export default function HeaderComponent() {
               router.push("/CartComponent/");
             }}
             type="button"
-            className="flex items-center transition bg-gray-900 hover:bg-gray-800 active:bg-gray-600 py-1 px-4 rounded-md "
+            className="flex items-center transition bg-gray-900 hover:bg-gray-800 active:bg-gray-900 py-1 px-4 rounded-md "
           >
             <CartSVG></CartSVG>
             {count}
@@ -43,7 +43,7 @@ export default function HeaderComponent() {
               updateUsername("");
               router.push("/LoginComponent");
             }}
-            className="transition bg-gray-700 hover:bg-gray-600 active:bg-gray-400 py-1 px-5 rounded-md ml-5"
+            className="transition bg-gray-700 hover:bg-gray-600 active:bg-gray-700 py-1 px-5 rounded-md ml-5"
             type="submit"
           >
             {login}

@@ -7,9 +7,9 @@ const CartList = () => {
   const { CartStore } = useCart();
   const cardSets = useSets();
   const sets = cardSets.data;
-
+  
+  // localStorage.getItem("Cart");
   let findData: Set[] = [];
-
   CartStore.forEach((id) => {
     const result = sets?.filter((x) => x.id === id);
     findData.push(...(result as Set[]));

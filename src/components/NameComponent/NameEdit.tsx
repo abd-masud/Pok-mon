@@ -2,6 +2,7 @@ import React, { FormEvent, Fragment, useState } from "react";
 import { CardNameEdit } from "../SVGComponent/CardNameEditSVG";
 import { useEditName } from "@/reactQueryHooks/useMutation";
 import { Dialog, Transition } from "@headlessui/react";
+import { CardDetails } from "../CardComponent/CardDetails";
 
 export const NameEdit = (props: any) => {
   const { mutate: updateName } = useEditName();
@@ -13,11 +14,10 @@ export const NameEdit = (props: any) => {
   };
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setEditedName("");
   };
-  console.log(props.id);
   return (
     <>
+      <CardDetails name={props.name}></CardDetails>
       <button
         className="absolute right-0 bg-rose-700 h-5 w-5 rounded flex justify-center items-center"
         onClick={handleEditOpen}
@@ -84,6 +84,7 @@ export const NameEdit = (props: any) => {
                               type="submit"
                               className="form-button submit w-28"
                               onClick={() => {
+                                setEditedName("");
                                 setEditOpen(false);
                                 updateName({
                                   setId: props.id!,
