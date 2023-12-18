@@ -2,6 +2,7 @@ export const TrashSVG = () => {
   return (
     <div>
       <svg
+      className="p-[1px] sm:p-0"
         xmlns="http://www.w3.org/2000/svg"
         height="16"
         width="14"

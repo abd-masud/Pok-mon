@@ -1,19 +1,24 @@
 import Image from "next/image";
-import { getOneCard } from "@/pokemonAPI/pokemonAPI";
+import { getOneSet } from "@/pokemonAPI/pokemonAPI";
 import { useRouter } from "next/router";
-import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
-import { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import Link from "next/link";
-import useCart from "@/reactQueryHooks/useCart";
+import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
+import emptyCard from "@/Image/emptyCard.png";
+import { useCards } from "@/reactQueryHooks/useCardSets";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { QueryKeys } from "@/Enums";
+import { StampedSet } from "@/types";
+import { useEffect, useState } from "react";
+import { getItem, setItem } from "@/tempStorage/storageFunction";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const data = await getAllSets();
   const tempPaths = data.map((x) => x.id);
-  let tempParams: { params: { cardview: any } }[] = [];
+  let tempParams: { params: { cardView: string } }[] = [];
   tempPaths.forEach((x) => {
-    tempParams.push({ params: { cardview: x } });
+    tempParams.push({ params: { cardView: x } });
   });
   return {
     paths: tempParams.splice(0, 5),
@@ -22,118 +27,146 @@ export const getStaticPaths: GetStaticPaths = async (qry) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context: any) => {
-  let card = {};
-  try {
-    card = await getOneCard(context.params?.cardview as string);
-  } catch (e) {
-    return {
-      props: {},
-      revalidate: 120,
-    };
-  }
-
-  return {
-    props: { card },
-    revalidate: 120,
-  };
+  const queryClient = new QueryClient();
+  const id = context.params?.cardView as string;
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.CardSet],
+    queryFn: async () => {
+      const singleCard = await getOneSet(id);
+      return singleCard;
+    },
+  });
+  return { props: { dehydratedState: dehydrate(queryClient) }, revalidate: 10 };
 };
 
-const setShowModal = ({ card }: { card: PokemonTCG.Set }) => {
-  const router = useRouter();
-  const { AddToCart, pushId } = useCart();
+const setShowModal = () => {
+  // const defaultState: { count: 0; items: StampedSet[]} = { count: 0, items: [] };
+  // const { random, setRandom } = useCartCount();
+  // const [cart, setCartCount] = useState<{ count: number; items: StampedSet[]}>(
+  //   defaultState
+  // );
+  // useEffect(() => {
+  //   let c = getItem("Cart");
+  //   if (!c) c = defaultState;
+  //   setCartCount(c);
+  // }, [random]);
 
-  const setId = router.query?.cardview as string | undefined;
-  const [singleCard, setSingleCard] = useState<PokemonTCG.Set>(card);
-  useEffect(() => {
-    setSingleCard(card);
-  }, [card]);
+  // const incCount = () => {
+  //   const newCart = {
+  //     count: cart.count + 1,
+  //     items: [...cart.items, { set: cards, timeStamp: Date.now() }],
+  //   };
+  //   setItem("Cart", JSON.stringify(newCart));
+  //   setCartCount(newCart);
+  //   setRandom();
+  // };
+
+  const router = useRouter();
+
+  const { AddToCart, pushCartId } = useCart();
+
+  const id = router.query.cardView as string;
+  const cardObject = useCards(id);
+  const cards = cardObject.data;
+
   if (router.isFallback) {
     return (
-      <div className="h-[860px] bg-gray-300 flex justify-center items-center">
-        <h1 className="text-[35px] px-[320px] py-[140px]">Loading...</h1>
+      <div className="h-[85vh] bg-gray-300 dark:bg-gray-900 flex justify-center items-center">
+        <h1 className="text-[35px] px-[320px] py-[140px] dark:text-white">
+          loading...
+        </h1>
       </div>
     );
   }
-  if (!card) {
+  if (!cards) {
     return (
-      <main className="h-[860px] flex justify-center items-center overflow-y-hidden bg-gray-300">
-        <h3 className="text-center text-[60px]">No items found :(</h3>
+      <main className="h-[85vh] flex flex-col justify-center items-center text-center overflow-y-hidden bg-gray-300 dark:bg-gray-900">
+        <Image
+          className="h-[85vh] w-auto pb-10"
+          width={200}
+          height={200}
+          src={emptyCard}
+          alt="Empty Item"
+          priority
+        ></Image>
+        <h3 className="text-center text-[30px] sm:text-[40px] dark:text-white">
+          No items found :(
+        </h3>
       </main>
     );
   }
-  return (
-    <div className="h-[860px] flex justify-center items-center bg-gray-300 overflow-hidden">
-      <>
-        <div className="bg-white py-14 rounded-xl shadow-lg shadow-black/50">
-          <div className="md:flex">
-            <div className="p-20 w-[400px] h-[300px] flex justify-center items-center">
-              <Image
-                width={300}
-                height={300}
-                priority
-                src={singleCard.images.logo}
-                alt="Card Image"
-              />
-            </div>
-            <div className="md:border-l-2 border-black px-14 pr-24 py-2 mb-10">
-              <p className="py-2">
-                <strong>Name : </strong>
-                {singleCard.name}
-              </p>
-              <p className="py-2">
-                <strong>Printed Total : </strong>
-                {singleCard.printedTotal}
-              </p>
-              <p className="py-2">
-                <strong>PTCGO Code : </strong>
-                {singleCard.ptcgoCode}
-              </p>
-              <p className="py-2">
-                <strong>Series : </strong>
-                {singleCard.series}
-              </p>
-              <p className="py-2">
-                <strong>Total : </strong>
-                {singleCard.total}
-              </p>
-              <p className="py-2">
-                <strong>Release Date : </strong>
-                {singleCard.releaseDate}
-              </p>
-              <p className="py-2">
-                <strong>Updated At : </strong>
-                {singleCard.updatedAt}
-              </p>
-            </div>
-          </div>
 
-          <div className="w-[500px] m-auto">
-            <div className="px-10 grid grid-cols-2">
-              <div className="flex justify-start">
+  return (
+    <div className="h-[85vh] flex justify-center items-center bg-gray-300 dark:bg-gray-900 overflow-hidden">
+      <div className="bg-white dark:bg-gray-700 mx-5 dark:text-white sm:text-[16px] text-[12px] sm:pt-20 sm:h-[500px] sm:w-[800px] w-[320px] rounded-xl shadow-lg shadow-black/50">
+        <div className="sm:flex">
+          <div className="p-20 sm:p-5 sm:ml-10 md:ml-0 md:p-20 sm:w-[250px] md:w-[400px] w-[320px] sm:h-[300px] h-[180px] flex justify-center items-center">
+            <Image
+              width={300}
+              height={300}
+              priority
+              src={cards?.images?.logo}
+              alt="Card Image"
+            />
+          </div>
+          <div className="md:border-l-2 border-black dark:border-white sm:px-14 px-10 pr-24 py-2">
+            <p className="sm:py-2 py-1">
+              <strong>Name : </strong>
+              {cards?.name}
+            </p>
+            <p className="sm:py-2 py-1">
+              <strong>Printed Total : </strong>
+              {cards?.printedTotal}
+            </p>
+            <p className="sm:py-2 py-1">
+              <strong>PTCGO Code : </strong>
+              {cards?.ptcgoCode}
+            </p>
+            <p className="sm:py-2 py-1">
+              <strong>Series : </strong>
+              {cards?.series}
+            </p>
+            <p className="sm:py-2 py-1">
+              <strong>Total : </strong>
+              {cards?.total}
+            </p>
+            <p className="sm:py-2 py-1">
+              <strong>Release Date : </strong>
+              {cards?.releaseDate}
+            </p>
+            <p className="sm:py-2 py-1">
+              <strong>Updated At : </strong>
+              {cards?.updatedAt}
+            </p>
+          </div>
+        </div>
+
+        <div className="m-auto mb-10 mt-5">
+          <div className="px-10 grid grid-cols-2">
+            <div className="flex justify-start sm:justify-center">
+              <Link href={"/"}>
                 <button
-                  className="form-button submit w-32"
+                  className="form-button clear sm:w-32 w-24 justify-end"
                   type="button"
-                  onClick={() => {
-                    AddToCart(), pushId(singleCard.id);
-                  }}
                 >
-                  Add to Cart
+                  Close
                 </button>
-              </div>
-              <div className="flex justify-end">
-                <Link href={"/"}>
-                  <button
-                    className="form-button clear w-32 justify-end"
-                    type="button"
-                  >
-                    Close
-                  </button>
-                </Link>
-              </div>
+              </Link>
+            </div>
+            <div className="flex justify-end sm:justify-center">
+              <button
+                className="form-button submit sm:w-32 w-24"
+                type="button"
+                onClick={() => {
+                  AddToCart(), pushCartId(cards?.id);
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
-      </>
+      </div>
     </div>
   );
 };

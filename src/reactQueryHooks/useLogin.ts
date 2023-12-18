@@ -1,18 +1,18 @@
 import { create } from 'zustand';
 
 type Store = {
-  login: any;
+  login: string;
   username: string;
-  updateLogin: (value: any) => void,
-  updateUsername: (value: any) => void,
+  updateLogin: (value: string) => void,
+  updateUsername: (value: string) => void,
   exUsername: () => void;
 };
 
 const useLogin = create<Store>((set) => ({
   login: "Login",
   username: "",
-  updateLogin: (value: any) => set((state) => ({ login: value })),
-  updateUsername: (value: any) => set((state) => ({ username: value })),
+  updateLogin: (value: string) => set((state) => ({ login: value })),
+  updateUsername: (value: string) => set((state) => ({ username: value })),
   exUsername: () => set((username) => ({ username: "CodeCamp" })),
 }));
 

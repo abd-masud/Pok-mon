@@ -1,22 +1,33 @@
 import { create } from 'zustand';
 
+export const useCartCount = create<{ random: number; setRandom: () => void }>(
+  (set) => ({
+    random: 0,
+    setRandom: () =>
+      set((state: { random: number }) => ({
+        random: Math.ceil(Math.random() * 500),
+      })),
+  })
+);
+
 type Store = {
   count: number;
   AddToCart: () => void;
-  Remove: () => void;
+  removeCartCount: () => void;
   CartStore: Array<string>;
-  pushId: (id: string) => void;
-  removeId: (id: string) => void;
+  pushCartId: (id: string) => void;
+  removeCartId: (id: string) => void;
 };
 
 const useCart = create<Store>((set) => ({
   count: 0,
   CartStore: [],
   AddToCart: () => set((state) => ({ count: state.count + 1 })),
-  Remove: () => set((state) => ({ count: state.count - 1 })),
-  pushId: (id) => set((state) => ({ CartStore: [...state.CartStore, id] })),
-  removeId: (id) => set((state) => {
+  removeCartCount: () => set((state) => ({ count: state.count - 1 })),
+  pushCartId: (id: string) => set((state) => ({ CartStore: [...state.CartStore, id] })),
+  removeCartId: (id) => set((state) => {
     state.CartStore.splice(state.CartStore.indexOf(id), 1);
+
     return {
       CartStore: [...state.CartStore],
     };
