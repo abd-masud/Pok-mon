@@ -2,7 +2,7 @@ import { Card } from "@/components/CardComponent/Card";
 import { useSets } from "@/reactQueryHooks/useCardSets";
 import cover from "@/Image/cover.png";
 import Image from "next/image";
-import { GetServerSidePropsContext, GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import { DehydratedState, QueryClient, dehydrate } from "@tanstack/react-query";
 import { QueryKeys } from "@/Enums/enum";
 import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk";

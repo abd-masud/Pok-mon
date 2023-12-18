@@ -9,11 +9,8 @@ export const LoginForm = () => {
   const [password, setPassword] = useState<string>("");
   const [logError, setError] = useState<boolean>(false);
   const [emptyField, setEmpty] = useState<boolean>(false);
-
   const { updateLogin, exUsername } = useLogin();
-
   const router = useRouter();
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     if (username == "codecamp" && password == "123") {
       router.push("/");

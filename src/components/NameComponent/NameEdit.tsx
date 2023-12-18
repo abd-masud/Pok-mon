@@ -7,7 +7,7 @@ import { CardDetails } from "../CardComponent/CardDetails";
 export const NameEdit = (props: { name: string; id: string }) => {
   const { mutate: updateName } = useEditName();
   const [editOpen, setEditOpen] = React.useState(false);
-  const [editedName, setEditedName] = useState("");
+  const [editedName, setEditedName] = useState("PokemonTCG");
   const handleEditOpen = () => setEditOpen(!editOpen);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedName(e.target.value);
@@ -93,7 +93,7 @@ export const NameEdit = (props: { name: string; id: string }) => {
                               type="submit"
                               className="form-button submit w-28 ml-2 sm:ml-0"
                               onClick={() => {
-                                setEditedName("");
+                                setEditedName("PokemonTCG");
                                 setEditOpen(false);
                                 updateName({
                                   setId: props.id!,
