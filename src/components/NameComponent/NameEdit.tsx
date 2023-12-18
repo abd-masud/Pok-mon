@@ -40,7 +40,7 @@ export const NameEdit = (props: { name: string; id: string }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-700/50 backdrop-blur-md transition-opacity" />
+            <div className="fixed inset-0 dark:bg-black/50 bg-gray-700/500 backdrop-blur-xl transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -79,19 +79,19 @@ export const NameEdit = (props: { name: string; id: string }) => {
                     <div className="bg-gray-50 dark:bg-gray-600 px-4 py-3 pb-10">
                       <div className="m-auto">
                         <div className="px-10 grid grid-cols-2 text-[12px] sm:text-[16px]">
-                          <div className="flex justify-start">
+                          <div className="flex justify-start ">
                             <button
                               type="button"
-                              className="form-button clear w-28 ml-2 sm:mr-10"
+                              className="form-button clear w-28 mr-2 sm:mr-0"
                               onClick={() => setEditOpen(false)}
                             >
                               Cancel
                             </button>
                           </div>
-                          <div className="flex justify-end">
+                          <div className="flex justify-end ">
                             <button
                               type="submit"
-                              className="form-button submit w-28 mr-2 sm:ml-10"
+                              className="form-button submit w-28 ml-2 sm:ml-0"
                               onClick={() => {
                                 setEditedName("");
                                 setEditOpen(false);

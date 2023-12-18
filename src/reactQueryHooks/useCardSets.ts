@@ -1,4 +1,4 @@
-import { QueryKeys } from "@/Enums"
+import { QueryKeys } from "@/Enums/enum"
 import { getAllSets, getOneSet } from "@/pokemonAPI/pokemonAPI";
 import { useQuery } from "@tanstack/react-query"
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript"
@@ -12,6 +12,7 @@ export const useSets = (isEnabled: boolean = false) => {
       },
       refetchOnWindowFocus: false,
       refetchOnMount: false,
+      retryOnMount:false,
       enabled: true,
       retry: 1
   });

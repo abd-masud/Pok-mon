@@ -1,7 +1,7 @@
-import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
-import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
+import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
 import React, { Fragment, useEffect, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { CardImage } from "../CardComponent/CardImage";
 import { CardModalInfo } from "@/components/ModalComponent/CardModalInfo";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
@@ -26,7 +26,7 @@ export const CardModal = ({ info }: { info: PokemonTCG.Set }) => {
   const incCount = () => {
     const newCart = {
       count: cart.count + 1,
-      items: [...cart.items, { set: info, timeStamp: Date.now() }],
+      items: [...cart.items, { set: info, timeStamp: Date.now() } as StampedSet],
     };
     setItem("Cart", JSON.stringify(newCart));
     setCartCount(newCart);
@@ -52,9 +52,8 @@ export const CardModal = ({ info }: { info: PokemonTCG.Set }) => {
             enter="duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            
           >
-            <div className="fixed inset-0 bg-gray-700/50 dark:bg-gray-900/50 backdrop-blur-lg transition-opacity" />
+            <div className="fixed inset-0 bg-gray-700/50 dark:bg-black/50 backdrop-blur-xl transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -80,7 +79,7 @@ export const CardModal = ({ info }: { info: PokemonTCG.Set }) => {
                         </Dialog.Title>
                         <div className="mt-2">
                           <Link href={`/cardRouter/viewSet/${info.id}`}>
-                            <div className="sm:h-[230px] h-[150px] sm:p-28 p-16 sm:pt-28 pt-16 mb-5 m-auto flex justify-center items-center bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 border-[1px] dark:hover:bg-gray-400 border-gray-300 transition rounded-md">
+                            <div className="sm:h-[230px] h-[150px] sm:p-28 p-16 sm:pt-28 pt-16 mb-5 m-auto flex justify-center items-center bg-gray-100 hover:bg-gray-200 active:bg-gray-100 dark:bg-gray-500 dark:hover:bg-gray-400 dark:active:bg-gray-500 border-[1px] border-gray-300 transition rounded-md">
                               <CardImage images={info.images}></CardImage>
                             </div>
                           </Link>

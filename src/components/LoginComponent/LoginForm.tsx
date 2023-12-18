@@ -1,7 +1,7 @@
 import Link from "next/link";
+import useLogin from "@/reactQueryHooks/useLogin";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
-import useLogin from "@/reactQueryHooks/useLogin";
 import { Close } from "../SVGComponent/XMarkSVG";
 
 export const LoginForm = () => {
@@ -82,7 +82,7 @@ export const LoginForm = () => {
             <div className="flex justify-center text-[12px] sm:text-[16px]">
               <span className="">
                 {logError ? (
-                  <span className="text-rose-600 font-bold">
+                  <span className="text-rose-500 font-bold">
                     Invalid Username or Password
                   </span>
                 ) : (
@@ -91,7 +91,7 @@ export const LoginForm = () => {
               </span>
               <span className="">
                 {emptyField ? (
-                  <span className="text-rose-600 font-bold">
+                  <span className="text-rose-500 font-bold">
                     Field can't be empty
                   </span>
                 ) : (

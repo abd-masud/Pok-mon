@@ -1,9 +1,9 @@
-import { useSets } from "@/reactQueryHooks/useCardSets";
-import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
-import ShowCart from "./ShowCart";
-import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
-import emptyCart from "@/Image/emptyCart.png";
 import Image from "next/image";
+import ShowCart from "./ShowCart";
+import emptyCart from "@/Image/emptyCart.png";
+import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
+import { useSets } from "@/reactQueryHooks/useCardSets";
+import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { StampedSet } from "@/types";
 import { useEffect, useState } from "react";
 import { getItem } from "@/tempStorage/storageFunction";
@@ -37,8 +37,8 @@ const CartList = () => {
   if (cart.count == 0) {
     return (
       <div className="min-h-[85vh] flex justify-center items-center flex-col dark:bg-gray-900">
-        <p className="text-center sm:text-[25px] text-[16px] dark:text-white">
-          <span className="font-bold">Oops!</span>
+        <p className="text-center sm:text-[22px] text-[16px] dark:text-white">
+          <span className="font-bold sm:text-[40px] text-[30px]">Oops!</span>
           <br />
           Add to cart something first...
         </p>

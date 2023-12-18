@@ -1,9 +1,9 @@
-import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
 import pokemon from "@/Image/pokemon.png";
 import Image from "next/image";
 import Link from "next/link";
 import useLogin from "@/reactQueryHooks/useLogin";
 import CartSVG from "../SVGComponent/CartSVG";
+import { useCartCount } from "@/reactQueryHooks/useCart";
 import { useRouter } from "next/router";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { useEffect, useState } from "react";
@@ -26,7 +26,6 @@ export default function HeaderComponent() {
   }, [random]);
 
   const router = useRouter();
-  // const { count } = useCart();
   const { login } = useLogin();
   const { username, updateLogin, updateUsername } = useLogin();
 
@@ -55,9 +54,7 @@ export default function HeaderComponent() {
           </Link>
         </div>
         <div className="flex justify-end items-center mr-3">
-          <div className="sm:visible invisible">
-          {username}
-          </div>
+          <div className="sm:visible invisible">{username}</div>
           <Link href={"/LoginComponent/"}>
             <button
               onClick={(e) => {

@@ -2,14 +2,13 @@ import { Card } from "@/components/CardComponent/Card";
 import { useSets } from "@/reactQueryHooks/useCardSets";
 import cover from "@/Image/cover.png";
 import Image from "next/image";
-import { GetServerSidePropsContext, GetStaticPaths } from "next";
+import { GetServerSidePropsContext, GetStaticPaths, GetStaticProps } from "next";
 import { DehydratedState, QueryClient, dehydrate } from "@tanstack/react-query";
-import { QueryKeys } from "@/Enums";
+import { QueryKeys } from "@/Enums/enum";
 import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk";
-import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+export const getStaticProps = async (
+  context: GetStaticProps
 ): Promise<{ props: { dehydratedState: DehydratedState } }> => {
   const queryClient = new QueryClient();
 
@@ -22,7 +21,7 @@ export const getServerSideProps = async (
   });
 
   return {
-    props: { dehydratedState: dehydrate(queryClient) },
+    props: { dehydratedState: dehydrate(queryClient) }
   };
 };
 

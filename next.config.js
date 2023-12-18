@@ -5,6 +5,15 @@ const nextConfig = {
   images:{
     domains:['images.pokemontcg.io']
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/cardRouter',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

@@ -1,17 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
+import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
 import { getOneSet } from "@/pokemonAPI/pokemonAPI";
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllSets } from "pokemon-tcg-sdk-typescript/dist/sdk";
-import Link from "next/link";
-import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
-import emptyCard from "@/Image/emptyCard.png";
 import { useCards } from "@/reactQueryHooks/useCardSets";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { QueryKeys } from "@/Enums";
+import { QueryKeys } from "@/Enums/enum";
 import { StampedSet } from "@/types";
 import { useEffect, useState } from "react";
 import { getItem, setItem } from "@/tempStorage/storageFunction";
+import NoCard from "./noCard";
+import DynamicLoad from "./dynamicLoad";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const data = await getAllSets();
@@ -40,26 +41,29 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
 };
 
 const setShowModal = () => {
-  // const defaultState: { count: 0; items: StampedSet[]} = { count: 0, items: [] };
-  // const { random, setRandom } = useCartCount();
-  // const [cart, setCartCount] = useState<{ count: number; items: StampedSet[]}>(
-  //   defaultState
-  // );
-  // useEffect(() => {
-  //   let c = getItem("Cart");
-  //   if (!c) c = defaultState;
-  //   setCartCount(c);
-  // }, [random]);
+  const defaultState: { count: 0; items: StampedSet[] } = {
+    count: 0,
+    items: [],
+  };
+  const { random, setRandom } = useCartCount();
+  const [cart, setCartCount] = useState<{ count: number, items: StampedSet[] }>(
+    defaultState
+  );
+  useEffect(() => {
+    let c = getItem("Cart");
+    if (!c) c = defaultState;
+    setCartCount(c);
+  }, [random]);
 
-  // const incCount = () => {
-  //   const newCart = {
-  //     count: cart.count + 1,
-  //     items: [...cart.items, { set: cards, timeStamp: Date.now() }],
-  //   };
-  //   setItem("Cart", JSON.stringify(newCart));
-  //   setCartCount(newCart);
-  //   setRandom();
-  // };
+  const incCount = () => {
+    const newCart = {
+      count: cart.count + 1,
+      items: [...cart.items, { set: cards, timeStamp: Date.now() } as StampedSet],
+    };
+    setItem("Cart", JSON.stringify(newCart));
+    setCartCount(newCart);
+    setRandom();
+  };
 
   const router = useRouter();
 
@@ -70,30 +74,11 @@ const setShowModal = () => {
   const cards = cardObject.data;
 
   if (router.isFallback) {
-    return (
-      <div className="h-[85vh] bg-gray-300 dark:bg-gray-900 flex justify-center items-center">
-        <h1 className="text-[35px] px-[320px] py-[140px] dark:text-white">
-          loading...
-        </h1>
-      </div>
-    );
+    return <DynamicLoad></DynamicLoad>;
   }
+
   if (!cards) {
-    return (
-      <main className="h-[85vh] flex flex-col justify-center items-center text-center overflow-y-hidden bg-gray-300 dark:bg-gray-900">
-        <Image
-          className="h-[85vh] w-auto pb-10"
-          width={200}
-          height={200}
-          src={emptyCard}
-          alt="Empty Item"
-          priority
-        ></Image>
-        <h3 className="text-center text-[30px] sm:text-[40px] dark:text-white">
-          No items found :(
-        </h3>
-      </main>
-    );
+    return <NoCard></NoCard>;
   }
 
   return (
@@ -158,7 +143,7 @@ const setShowModal = () => {
                 className="form-button submit sm:w-32 w-24"
                 type="button"
                 onClick={() => {
-                  AddToCart(), pushCartId(cards?.id);
+                  AddToCart(), pushCartId(cards?.id), incCount();
                 }}
               >
                 Add to Cart

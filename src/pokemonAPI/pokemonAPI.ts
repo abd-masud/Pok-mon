@@ -7,6 +7,7 @@ export const getAllSets = async () => {
 
 export const getOneSet = async (setId: string) => {
     const OneCard = await PokemonTCG.findSetByID(setId);
+    if(Array.isArray(OneCard)) return undefined;
     return OneCard;
 }
 

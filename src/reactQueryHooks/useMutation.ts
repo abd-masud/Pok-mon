@@ -1,4 +1,4 @@
-import { QueryKeys } from "@/Enums";
+import { QueryKeys } from "@/Enums/enum";
 import { editName } from "@/pokemonAPI/pokemonAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
@@ -18,9 +18,6 @@ export const useEditName = () => {
                     return foundSet;
                 }
             )
-        },
-        onError: (err) => {
-            console.log(err);
         },
     });
 };

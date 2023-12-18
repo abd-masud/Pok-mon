@@ -1,5 +1,5 @@
-import useCart, { useCartCount } from "@/reactQueryHooks/useCart";
 import Image from "next/image";
+import { useCartCount } from "@/reactQueryHooks/useCart";
 import { TrashSVG } from "../SVGComponent/TrashSVG";
 import { StampedSet } from "@/types";
 import { useEffect, useState } from "react";
